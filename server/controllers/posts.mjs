@@ -4,7 +4,6 @@ import postMessage from "../models/postMessage.mjs"
 export const getPosts = async (req, res) => {
   try{
     const postMessages = await postMessage.find();
-    console.log(postMessages)
     res.status(200).json(postMessages);
   }catch(err){
     res.status(404).json({ message: err.message})
