@@ -17,6 +17,9 @@ const Posts = () => {
         <Post />
         <Post />
         <Post />
+        <Post />
+        <Post />
+        <Post />
       </PostWrap>
     </PostsWrap>
   )
@@ -25,6 +28,8 @@ const Posts = () => {
 export default Posts
 
 const PostsWrap = styled.div`
+  flex: 3;
+  height: calc(100vh - 145px);
   background-color: #F9F7F7;
   display: flex;
   flex-direction: column;
@@ -32,9 +37,9 @@ const PostsWrap = styled.div`
 
 const PostWrap = styled.div`
   margin-top: 1rem;
-  height: 100%;
+  flex: 1;
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
 `;

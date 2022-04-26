@@ -1,7 +1,13 @@
 *{
+  overflow: hidden;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body{
+  width: 100vw;
+  height: 100vh;
 }
 
 /* text */
@@ -83,9 +89,8 @@ a{
   background-color: #F9F7F7;
 }
 
-/* button */
+/* utils */
 .btn{
-  background-color: #00B4D8;
   border: none;
   cursor: pointer;
   border-radius: 5px;
@@ -95,7 +100,6 @@ a{
   letter-spacing: 1.2px;
 }
 
-/* input */
 .input{
   width: 300px;
   border: 3px solid #00B4D8;

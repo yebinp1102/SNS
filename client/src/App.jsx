@@ -20,19 +20,22 @@ const App = () => {
   },[dispatch])
 
   return (
-    <AppWrap className='sub-bg-color-dark'>
+    <AppWrap>
       <Header className='box-shadow-shallow sub-bg-color-light'>
         <div className='logo'>
           <InterestsIcon />
           <h1 className='main-color-dark'>SNS</h1>
         </div>
         <div className='rightNav'>
-          <Input type={'text'} name={'searchContent'} placeholder={'내용 검색'} />
-          <Input type={'text'} name={'searchTag'} placeholder={'태그 검색'} />
-          <Button name={"로그인"} />
+          <Input witdh='300px' type='text' name='searchContent' placeholder='내용 검색' />
+          <Input width='300px' type='text' name='searchTag' placeholder='태그 검색' />
+          <Button 
+            name={"로그인"}
+            className="highlight-bg-color" 
+          />
         </div>
       </Header>
-      <Main className='pd-2'>
+      <Main className='pd-2 sub-bg-color-dark'>
         <Posts/>
         <Form />
       </Main>
@@ -43,8 +46,6 @@ const App = () => {
 export default App
 
 const AppWrap = styled.div`
-  height: 100vh;
-  width: 100vw;
   display: flex;
   flex-direction: column;
 `;
@@ -77,9 +78,7 @@ const Header = styled.nav`
 `;
 
 const Main = styled.main`
-  display: grid;
-  gap: 40px;
-  grid-template-columns: 2fr 1fr;
-  height: calc(100vh - 80px);
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
 `;
-
