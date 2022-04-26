@@ -1,8 +1,12 @@
 import React from 'react'
 import Post from './Post/Post'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
 
 const Posts = () => {
+  const posts = useSelector((state) => state.posts);
+  console.log(posts);
+
   return (
     <PostsWrap className='border pd-1 box-shadow-deep'>
       <h2 className='pd-1 main-color-dark'>최신 글</h2>

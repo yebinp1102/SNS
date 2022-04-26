@@ -1,14 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import Posts from './components/Posts/Posts'
 import Form from './components/Form/Form'
 
+// Redux
+import { useDispatch } from 'react-redux'
+import { getPosts } from './_actions/posts'
 // svg icons
 import InterestsIcon from '@mui/icons-material/Interests';
 import Button from './utils/Button';
 import Input from './utils/Input';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  // 어플 렌더링하자마자 모든 포스트를 불러오기 위한 action을 dispatch
+  useEffect(()=>{
+    dispatch(getPosts());
+  },[dispatch])
+
   return (
     <AppWrap className='sub-bg-color-dark'>
       <Header className='box-shadow-shallow sub-bg-color-light'>
