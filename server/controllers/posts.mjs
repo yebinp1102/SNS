@@ -1,3 +1,7 @@
+import express from 'express'
+import mongoose from 'mongoose';
+
+const router = express.Router();
 // 각 모델 접근 권한
 import postMessage from "../models/postMessage.mjs"
 
@@ -11,12 +15,12 @@ export const getPosts = async (req, res) => {
 }
 
 export const createPost = async (req, res) => {
-  const body = req.body;
-  const newPost = new postMessage(post);
+  const { title, message, selectedFile, creator, tags } = req.body;
+  const newPost = new postMessage({ title, message, selectedFile, creator, tags })
   try{
     await newPost.save();
     res.status(200).json(newPost)
   }catch(err){
-    res.status(404).json({ message: err.message })
+    res.status(409).json({ message: err.message })
   }
 }

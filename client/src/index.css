@@ -24,6 +24,13 @@ a{
   text-align: center;
 }
 
+.center{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* padding & margin */
 .pd-1{
   padding: 1rem;

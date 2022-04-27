@@ -1,11 +1,14 @@
 import React, { useState} from 'react'
 import styled from 'styled-components'
 import FileBase from 'react-file-base64'
+import { useDispatch } from 'react-redux'
 
 import Button from '../../utils/Button'
-import Input from '../../utils/Input'
+import { createPost } from '../../_actions/posts'
 
 const Form = () => {
+  const dispatch = useDispatch();
+
   const [postData, setPostData] = useState({
     creator: '',
     title: '',
@@ -14,8 +17,9 @@ const Form = () => {
     selectedFile: ''
   });
 
-  const handleSubmit = () => {
-    
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(createPost(postData)) // _action에서 만든 createPost를 dispatch
   }
 
   const clear = () => {
@@ -60,7 +64,7 @@ const Form = () => {
           <FileBase 
             type="file"
             multiple={false}
-            onDone={(base64) => setPostData({ ...postData, selectedFile: base64}) }
+            onDone={({base64}) => setPostData({ ...postData, selectedFile: base64}) }
           />
         </div>
         <Button

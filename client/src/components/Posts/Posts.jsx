@@ -1,26 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Post from './Post/Post'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
+import { CircularProgress } from '@material-ui/core'
 
 const Posts = () => {
   const posts = useSelector((state) => state.posts);
-  console.log(posts);
+  useEffect(()=>{
+    console.log(posts)
+  },[posts])
 
   return (
     <PostsWrap className='border pd-1 box-shadow-deep'>
-      <h2 className='pd-1 main-color-dark'>최신 글</h2>
-      <PostWrap className='pd-1 sub-bg-color-dark border'>
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-      </PostWrap>
+      {!posts.length ? <CircularProgress /> : (
+        <>
+          <h2 className='pd-1 main-color-dark'>최신 글</h2>
+          <PostWrap className='pd-1 sub-bg-color-dark border'>
+            {posts.map((post) => (
+              <Post key={post._id} post={post} />
+            ))}
+          </PostWrap>
+        </>
+      )}
     </PostsWrap>
   )
 }
