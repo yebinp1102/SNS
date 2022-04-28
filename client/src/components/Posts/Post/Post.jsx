@@ -1,12 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
-
+import { useDispatch } from 'react-redux'
+import { deletePost } from '../../../_actions/posts';
 // icons
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Post = ({post, setCurrentId}) => {
+  const dispatch = useDispatch();
   return (
     <PostBox className='box-shadow-shallow border'>
       <PreviewTop 
@@ -30,7 +32,7 @@ const Post = ({post, setCurrentId}) => {
             <ThumbUpIcon />
             <span>좋아요 ({post.likeCount})</span>
           </button>
-          <button className='cursor warning-color' onClick={() => {}}>
+          <button className='cursor warning-color' onClick={() => dispatch(deletePost(post._id))}>
             <DeleteIcon/>
             <span>삭제하기</span>
           </button>

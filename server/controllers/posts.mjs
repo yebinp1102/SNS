@@ -32,3 +32,10 @@ export const updatePost = async (req, res) => {
   const updatePost = await postMessage.findByIdAndUpdate(_id, { ...post, _id }, { new: true });
   res.json(updatePost);
 }
+
+export const deletePost = async (req, res) => {
+  const { id } = req.params;
+  if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('해당 포스트는 존하지 않습니다.')
+  await postMessage.findByIdAndRemove(id);
+  res.json({ message: '글이 성공적으로 삭제 되었습니다.'})
+}
