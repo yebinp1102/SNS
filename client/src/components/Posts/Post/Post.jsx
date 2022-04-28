@@ -6,7 +6,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const Post = ({post}) => {
+const Post = ({post, setCurrentId}) => {
   return (
     <PostBox className='box-shadow-shallow border'>
       <PreviewTop 
@@ -17,11 +17,12 @@ const Post = ({post}) => {
           <p>{post.creator}</p>
           <p>{(post.createAt).slice(0,10)}</p>
         </div>
-        <MoreHorizIcon className='cursor' onClick={() => {}} />
+        <MoreHorizIcon className='cursor' onClick={() => setCurrentId(post._id)} />
       </PreviewTop>
       <PreviewBottom className='pd-1'>
         <div>
           <p className='sub-color-dark'>{post.tags.map((tag) => `#${tag} `)}</p>
+          <p>{post.title}</p>
           <p>{post.message}</p>
         </div>
         <Btns>

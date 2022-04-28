@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { CircularProgress } from '@material-ui/core'
 
-const Posts = () => {
+const Posts = ({setCurrentId}) => {
   const posts = useSelector((state) => state.posts);
   useEffect(()=>{
     console.log(posts)
@@ -17,7 +17,7 @@ const Posts = () => {
           <h2 className='pd-1 main-color-dark'>최신 글</h2>
           <PostWrap className='pd-1 sub-bg-color-dark border'>
             {posts.map((post) => (
-              <Post key={post._id} post={post} />
+              <Post key={post._id} post={post} setCurrentId={setCurrentId} />
             ))}
           </PostWrap>
         </>

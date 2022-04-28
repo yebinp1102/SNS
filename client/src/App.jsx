@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Posts from './components/Posts/Posts'
 import Form from './components/Form/Form'
@@ -13,11 +13,12 @@ import Input from './utils/Input';
 
 const App = () => {
   const dispatch = useDispatch();
+  const [currentId, setCurrentId] = useState(null);
 
   // 어플 렌더링하자마자 모든 포스트를 불러오기 위한 action을 dispatch
   useEffect(()=>{
     dispatch(getPosts());
-  },[dispatch])
+  },[currentId, dispatch])
 
   return (
     <AppWrap>
@@ -36,8 +37,8 @@ const App = () => {
         </div>
       </Header>
       <Main className='pd-2 sub-bg-color-dark'>
-        <Posts/>
-        <Form />
+        <Posts setCurrentId={setCurrentId} />
+        <Form currentId={currentId} setCurrentId={setCurrentId} />
       </Main>
     </AppWrap>
   )

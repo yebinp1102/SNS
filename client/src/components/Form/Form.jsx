@@ -1,13 +1,14 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import FileBase from 'react-file-base64'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector} from 'react-redux'
 
 import Button from '../../utils/Button'
-import { createPost } from '../../_actions/posts'
+import { createPost, updatePost } from '../../_actions/posts'
 
-const Form = () => {
+const Form = ({currentId, setCurrentId}) => {
   const dispatch = useDispatch();
+  const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null );
 
   const [postData, setPostData] = useState({
     creator: '',
@@ -17,19 +18,35 @@ const Form = () => {
     selectedFile: ''
   });
 
+  useEffect(()=>{
+    if(post) setPostData(post);
+  },[post])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(createPost(postData)) // _action에서 만든 createPost를 dispatch
+    if(currentId){
+      dispatch(updatePost(currentId, postData))
+    }else{
+      dispatch(createPost(postData)) // _action에서 만든 createPost를 dispatch
+    }
+    clear();
   }
 
   const clear = () => {
-    
+    setCurrentId(null);
+    setPostData({
+      creator: '',
+      title: '',
+      message: '',
+      tags: '',
+      selectedFile: ''
+    })
   }
 
   return (
     <FormWrap className='pd-1 border box-shadow-deep'>
       <form autoComplete='off' noValidate onSubmit={handleSubmit}>
-        <p>글 작성하기</p>
+        <p>{currentId ? '편집하기' : '새 글 작성하기'}</p>
         <InputWrap>
           <input
             placeholder='작성자'
