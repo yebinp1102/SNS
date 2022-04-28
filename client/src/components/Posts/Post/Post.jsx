@@ -1,28 +1,40 @@
 import React from 'react'
 import styled from 'styled-components'
 
+// icons
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 const Post = ({post}) => {
   return (
-    <PostBox className='pd-1 box-shadow-shallow border'>
-      <div>
-        <p>{post.creator}</p>
-        <p>{(post.createAt).slice(0,10)}</p>
-      </div>
-      <div>
-        <button className='btn' onClick={() => {}}>
-          아이콘
-        </button>
-      </div>
-      <div>
-        <p>{post.tags.map((tag) => `#${tag} `)}</p>
-      </div>
-      <div>
-        <p>{post.message}</p>
-      </div>
-      <div>
-        <button className='btn' onClick={() => {}}>좋아요 ({post.likeCount})</button>
-        <button className='btn' onClick={() => {}}>삭제하기</button>
-      </div>
+    <PostBox className='box-shadow-shallow border'>
+      <PreviewTop 
+        className='pd-1' 
+        style={{backgroundImage: ` linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url(${post.selectedFile})`}}
+      >
+        <div>
+          <p>{post.creator}</p>
+          <p>{(post.createAt).slice(0,10)}</p>
+        </div>
+        <MoreHorizIcon className='cursor' onClick={() => {}} />
+      </PreviewTop>
+      <PreviewBottom className='pd-1'>
+        <div>
+          <p className='sub-color-dark'>{post.tags.map((tag) => `#${tag} `)}</p>
+          <p>{post.message}</p>
+        </div>
+        <Btns>
+          <button className='cursor highlight-color' onClick={() => {}}>
+            <ThumbUpIcon />
+            <span>좋아요 ({post.likeCount})</span>
+          </button>
+          <button className='cursor warning-color' onClick={() => {}}>
+            <DeleteIcon/>
+            <span>삭제하기</span>
+          </button>
+        </Btns>
+      </PreviewBottom>
     </PostBox>
   )
 }
@@ -32,4 +44,44 @@ export default Post
 const PostBox = styled.div`
   height: 100%;
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
+`;
+
+const PreviewTop = styled.div`
+  background-size: cover;
+  background-position: center center;
+  color: #fff;
+  height: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const PreviewBottom = styled.div`
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .sub-color-dark{
+    margin-bottom: 10px;
+  }
+`;
+
+const Btns = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  button{
+    background-color:transparent;
+    border none;
+    display: flex;
+    align-items: center;
+  }
+
+  svg{
+    font-size: 1.25rem;
+    margin-right: 5px;
+  }
 `;

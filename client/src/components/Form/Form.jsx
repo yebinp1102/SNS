@@ -73,6 +73,7 @@ const Form = () => {
           type="submit" 
         />
         <Button
+          className="warning-bg-color"
           name="초기화"
           onClick={clear}
         />

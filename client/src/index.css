@@ -31,6 +31,10 @@ a{
   justify-content: center;
 }
 
+.cursor {
+  cursor: pointer;
+}
+
 /* padding & margin */
 .pd-1{
   padding: 1rem;
@@ -95,7 +99,12 @@ a{
 .sub-bg-color-light{
   background-color: #F9F7F7;
 }
-
+.warning-color{
+  color: #F24A72;
+}
+.warning-bg-color{
+  background-color: #F24A72;
+}
 /* utils */
 .btn{
   border: none;
