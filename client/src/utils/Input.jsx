@@ -1,12 +1,16 @@
 import React from 'react'
 
-const Input = ({ placeholder, name, type}) => {
+const Input = ({ name, type, handleChange, label, handleShowPassword }) => {
   return (
     <input
       className='input'
       type={type}
       name={name}
-      placeholder={placeholder}
+      placeholder={name}
+      onChange={handleChange}
+      label={label}
+      handleShowPassword={handleShowPassword}
+      autoComplete="off"
     />
   )
 }

@@ -17,8 +17,8 @@ const Navbar = () => {
         </Link>
       </div>
       <div className='rightNav'>
-        <Input witdh='300px' type='text' name='searchContent' placeholder='내용 검색' />
-        <Input width='300px' type='text' name='searchTag' placeholder='태그 검색' />
+        <Input witdh='300px' type='text' name='내용 검색' />
+        <Input width='300px' type='text' name='태그 검색' />
         { user ? (
           <div>
             <p>{user.result.name}</p>
@@ -28,10 +28,9 @@ const Navbar = () => {
             />
           </div>
         ) : ( 
-          <Button 
-            name={"로그인"}
-            className="highlight-bg-color" 
-          />
+          <Link to='/auth'>
+            <Button name={"로그인"} className="highlight-bg-color" />
+          </Link>
         )}
       </div>
     </Header>
