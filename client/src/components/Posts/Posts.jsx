@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Post from './Post/Post'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
@@ -6,9 +6,6 @@ import { CircularProgress } from '@material-ui/core'
 
 const Posts = ({setCurrentId}) => {
   const posts = useSelector((state) => state.posts);
-  useEffect(()=>{
-    console.log(posts)
-  },[posts])
 
   return (
     <PostsWrap className='border pd-1 box-shadow-deep'>

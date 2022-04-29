@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
 
@@ -7,7 +7,19 @@ import Button from '../../utils/Button';
 import Input from '../../utils/Input'
 
 const Navbar = () => {
-  const user = null;
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+
+  useEffect(()=>{
+    const token = user?.token;
+    // 구글 로그인 시 token을 제공하기 때문에 jwt 사용할 필요 X
+    setUser(JSON.parse(localStorage.getItem('profile')))
+  },[])
+
+  const logout = () => {
+
+  }
+
+  console.log(user);
   return (
     <Header className='box-shadow-shallow sub-bg-color-light'>
       <div className='logo'>
@@ -20,11 +32,12 @@ const Navbar = () => {
         <Input witdh='300px' type='text' name='내용 검색' />
         <Input width='300px' type='text' name='태그 검색' />
         { user ? (
-          <div>
-            <p>{user.result.name}</p>
+          <div className='center'>
+            <p className='username'>{user.result.name}</p>
             <Button 
               name={"로그아웃"}
               className="highlight-bg-color" 
+              onClick={logout}
             />
           </div>
         ) : ( 
@@ -65,5 +78,10 @@ const Header = styled.nav`
     align-items: center;
     gap: 20px;
     padding: 0 4rem;
+
+    .username{
+      margin: 0 40px;
+      font-size: 1.25rem;
+    }
   }
 `;
