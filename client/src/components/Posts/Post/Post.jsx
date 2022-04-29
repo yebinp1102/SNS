@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
-import { deletePost } from '../../../_actions/posts';
+import { deletePost, likePost } from '../../../_actions/posts';
 // icons
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -23,12 +23,12 @@ const Post = ({post, setCurrentId}) => {
       </PreviewTop>
       <PreviewBottom className='pd-1'>
         <div>
-          <p className='sub-color-dark'>{post.tags.map((tag) => `#${tag} `)}</p>
-          <p>{post.title}</p>
+          <p>{post.tags.map((tag) => `#${tag} `)}</p>
+          <h2>{post.title}</h2>
           <p>{post.message}</p>
         </div>
         <Btns>
-          <button className='cursor highlight-color' onClick={() => {}}>
+          <button className='cursor highlight-color' onClick={() => dispatch(likePost(post._id))}>
             <ThumbUpIcon />
             <span>좋아요 ({post.likeCount})</span>
           </button>
@@ -67,8 +67,9 @@ const PreviewBottom = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  .sub-color-dark{
+  p{
     margin-bottom: 10px;
+    color: #555;
   }
 `;
 

@@ -1,5 +1,5 @@
 import * as api from '../api'
-import { CREATE, FETCH_ALL, UPDATE, DELETE } from './types'
+import { CREATE, FETCH_ALL, UPDATE, DELETE, LIKE } from './types'
 
 // Action Creators : 액션을 반환하는 함수
 export const getPosts = () => async (dispatch) => {
@@ -35,5 +35,14 @@ export const deletePost = (id) => async (dispatch) => {
     dispatch({ type: DELETE, payload: id})
   }catch(err){
     console.log(err)
+  }
+}
+
+export const likePost = (id) => async (dispatch) => {
+  try{
+    const { data } = await api.likePost(id)
+    dispatch({ type: LIKE, payload: data })
+  }catch(err){
+    console.log(err)  
   }
 }
