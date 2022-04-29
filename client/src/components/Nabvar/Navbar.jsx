@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import InterestsIcon from '@mui/icons-material/Interests';
 import Button from '../../utils/Button';
 import Input from '../../utils/Input'
+import { LOGOUT } from '../../_actions/types';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
 
   useEffect(()=>{
     const token = user?.token;
     // 구글 로그인 시 token을 제공하기 때문에 jwt 사용할 필요 X
     setUser(JSON.parse(localStorage.getItem('profile')))
-  },[])
+  },[location])
 
   const logout = () => {
-
+    dispatch({ type: LOGOUT })
+    navigate('/')
+    setUser(null);
   }
 
   console.log(user);
