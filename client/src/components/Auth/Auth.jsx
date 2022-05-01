@@ -5,24 +5,37 @@ import { useDispatch } from 'react-redux'
 // icons
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import GoogleIcon from '@mui/icons-material/Google';
-// googleLogin
+// Login & SignUp
 import { AUTH } from '../../_actions/types'
 import { GoogleLogin } from 'react-google-login'
 import { useNavigate } from 'react-router-dom';
+import { signin, signup } from '../../_actions/auth';
 
+const initialState = {
+  username: '',
+  email: '',
+  password: '',
+  confirmPassword: ''
+}
 
 const Auth = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const [showPassword, setShowPassword] = useState(false)
   const [isSignup, setIsSignup] = useState(false);
+  const [formData, setFormData] = useState(initialState)
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(isSignup){
+      dispatch(signup(formData, navigate))
+    }else{
+      dispatch(signin(formData, navigate))
+    }
   }
 
-  const handleChange = () => {
-    
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
   const SwitchMode = () => {
@@ -57,31 +70,32 @@ const Auth = () => {
         </div>
         { isSignup && (
           <>
-            <Input name="이름" label="FirsthBane" handleChange={handleChange} />
+            <Input name="username" placeholder="이름" label="username" handleChange={handleChange} />
           </>
         )}
         <Input 
-          name="이메일" 
+          name="email" 
+          placeholder="이메일" 
           type="email" 
           label="Email Address" 
           handleChange={handleChange} 
         />
-        <Input 
-          name="비밀번호" 
+        <Input name="password" 
+          placeholder="비밀번호" 
           type={showPassword ? 'text' : 'password'}
           handleShowPassword={handleShowPassword} 
           label="Password" 
           handleChange={handleChange} 
         />
         { isSignup && 
-          <Input 
-            name="비밀번호 확인" 
+          <Input name="confirmPassword" 
+            placeholder="비밀번호 확인" 
             label="Repeat Password" 
             handleChange={handleChange}  
             type="password"  
           />
         }
-        <button className='btn highlight-bg-color'>{isSignup ? '회원가입' : '로그인'}</button>
+        <button type='submit' className='btn highlight-bg-color'>{isSignup ? '회원가입' : '로그인'}</button>
         <GoogleLogin 
           clientId='927882145131-vbaqj9ii9mhp98a07gr2rolktovtcku5.apps.googleusercontent.com'
           render={(renderProps) => (

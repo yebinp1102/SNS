@@ -5,6 +5,7 @@ import cors from 'cors'
 
 // 라우터
 import postRoutes from './routes/posts.mjs'
+import userRoutes from './routes/users.mjs'
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(bodyParser.json({ limit: "30mb", extended: true})); // 이후 전송할 
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true}));
 app.use(cors());
 app.use('/posts', postRoutes);
+app.use('/user', userRoutes);
 
 // 몽고 DB 연결
 
