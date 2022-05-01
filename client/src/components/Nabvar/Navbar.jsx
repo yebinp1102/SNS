@@ -40,7 +40,7 @@ const Navbar = () => {
         <Input width='300px' type='text' name='태그 검색' />
         { user ? (
           <div className='center'>
-            <p className='username'>{user.result.name}</p>
+            <p className='username'>{user.result.name || user.result.username} 님</p>
             <Button 
               name={"로그아웃"}
               className="highlight-bg-color" 

@@ -21,7 +21,6 @@ const initialState = {
 const Auth = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
-  const [showPassword, setShowPassword] = useState(false)
   const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState(initialState)
 
@@ -40,7 +39,6 @@ const Auth = () => {
 
   const SwitchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup)
-    handleShowPassword(false);
   }
 
   const googleSuccess = async (res) => {
@@ -58,8 +56,6 @@ const Auth = () => {
     console.log(err)
     console.log("구글 로그인에 실패 했습니다. 다시 시도해 주세요.")
   }
-
-  const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword )
   
   return (
     <AuthWrap className='sub-bg-color-dark center'>
@@ -82,8 +78,7 @@ const Auth = () => {
         />
         <Input name="password" 
           placeholder="비밀번호" 
-          type={showPassword ? 'text' : 'password'}
-          handleShowPassword={handleShowPassword} 
+          type='password'
           label="Password" 
           handleChange={handleChange} 
         />

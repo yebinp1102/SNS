@@ -13,8 +13,8 @@ const App = () => {
       <AppWrap>
         <Navbar/>
         <Routes>
-          <Route path='/' exact element={<Home />} />
-          <Route path='/auth' exact element={<Auth />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/auth' element={<Auth />} />
         </Routes>
       </AppWrap>
     </BrowserRouter>

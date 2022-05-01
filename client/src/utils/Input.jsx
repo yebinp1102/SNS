@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Input = ({ name, type, handleChange, label, handleShowPassword, placeholder }) => {
+const Input = ({ name, type, handleChange, label, placeholder }) => {
   return (
     <input
       className='input'
@@ -9,7 +9,6 @@ const Input = ({ name, type, handleChange, label, handleShowPassword, placeholde
       placeholder={placeholder}
       onChange={handleChange}
       label={label}
-      handleShowPassword={handleShowPassword}
       autoComplete="off"
     />
   )

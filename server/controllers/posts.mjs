@@ -42,8 +42,18 @@ export const deletePost = async (req, res) => {
 
 export const likePost = async (req, res) => {
   const { id } = req.params;
+  if(!req.userId) return res.json({ message: '인증되지 않았습니다.'})
   if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('해당 포스트는 존하지 않습니다.')
   const post = await postMessage.findById(id);
-  const updatedPost = await postMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
+  // 어떤 유저가 특정 게시글에 이미 좋아요를 눌렀는지 확인. 안눌렀으면 -1 반환.
+  const index = post.likes.findIndex((id) => id === String(req.userId));
+  if(index === -1){
+    // 좋아요를 누르지 않은 경우엔, likes 배열에 유저의 아이디를 push
+    post.likes.push(req.userId)
+  }else{
+    // 좋아요를 이미 누른 경우라면 좋아요 기능을 취소할 수 있게 likes 배열에서 해당 유저 아이디를 제거한다.
+    post.likes = post.likes.filter((id) => id !== String(req.userId));
+  }
+  const updatedPost = await postMessage.findByIdAndUpdate(id, post, { new: true });
   res.json(updatedPost)
 }

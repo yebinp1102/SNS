@@ -4,10 +4,10 @@ const postSchema = mongoose.Schema({
   title : String,
   message: String,
   creator: String,
-  tags: [String], // 태그는 반드시 문자열로 이루어진 배열
+  tags: [String], // 태그는 반드시 문자 타입의 데이터를 요소로 갖는 배열
   selectedFile: String,  // 선택된 이미지를 문자열로 바꿀 것이다.
-  likeCount: {
-    type: Number,
+  likes: {
+    type: [String],
     default: 0
   },
   createAt: {
