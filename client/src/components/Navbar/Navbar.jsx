@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import decode from 'jwt-decode'
 
 import InterestsIcon from '@mui/icons-material/Interests';
 import Button from '../../utils/Button';
@@ -18,6 +19,11 @@ const Navbar = () => {
   useEffect(()=>{
     const token = user?.token;
     // 구글 로그인 시, token이 자동 생성되기 때문에 jwt 사용할 필요 X
+    if(token){
+      const decodedToken = decode(token);
+      // 토큰이 만료된 경우, 자동으로 로그아웃 되도록 설정
+      if(decodedToken.exp * 1000 < new Date().getTime()) logout()
+    }
     setUser(JSON.parse(localStorage.getItem('profile')))
   },[location])
 

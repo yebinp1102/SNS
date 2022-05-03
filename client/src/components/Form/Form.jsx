@@ -98,7 +98,6 @@ const Form = ({currentId, setCurrentId}) => {
 export default Form
 
 const FormWrap = styled.div`
-  flex: 1;
   background-color: #F9F7F7;
   height: auto;
 

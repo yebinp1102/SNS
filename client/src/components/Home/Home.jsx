@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Posts from '../Posts/Posts'
 import Form from '../Form/Form'
+import Pagination from '../Pagination'
+
 // Redux
 import { useDispatch } from 'react-redux'
 import { getPosts } from '../../_actions/posts'
@@ -18,7 +20,10 @@ const Home = () => {
   return (
     <Main className='pd-2 sub-bg-color-dark'>
       <Posts setCurrentId={setCurrentId} />
-      <Form currentId={currentId} setCurrentId={setCurrentId} />
+      <div className='sideBar'>
+        <Form currentId={currentId} setCurrentId={setCurrentId} />
+        <Pagination />
+      </div>
     </Main>
   )
 }
@@ -29,4 +34,8 @@ const Main = styled.main`
   display: flex;
   align-items: flex-start;
   gap: 30px;
+
+  .sideBar{
+    flex: 1;
+  }
 `;
