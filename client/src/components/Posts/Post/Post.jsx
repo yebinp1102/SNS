@@ -41,7 +41,10 @@ const Post = ({post, setCurrentId}) => {
           <p>{post.name}</p>
           <p>{(post.createdAt).slice(0,10)}</p>
         </div>
-        <MoreHorizIcon className='cursor' onClick={() => setCurrentId(post._id)} />
+        {(user?.result?.googleId === post?.creator || user?.result?._id === post.creator) && (
+          // 자신이 작성한 글만 수정할 수 있게, 자신의 게시글만 편집 버튼이 존재. 
+          <MoreHorizIcon className='cursor' onClick={() => setCurrentId(post._id)} />
+        )}
       </PreviewTop>
       <PreviewBottom className='pd-1'>
         <div>
@@ -53,10 +56,13 @@ const Post = ({post, setCurrentId}) => {
           <button className='cursor highlight-color' disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
             <Likes />
           </button>
-          <button className='cursor warning-color' onClick={() => dispatch(deletePost(post._id))}>
-            <DeleteIcon/>
-            <span>삭제하기</span>
-          </button>
+          {(user?.result?.googleId === post?.creator || user?.result?._id === post.creator) && (
+            // 유저가 자신이 생성한 글만 삭제 할 수 있게, 자신이 생성한 게시글에만 삭제 UI가 존재하도록 설정.
+            <button className='cursor warning-color' onClick={() => dispatch(deletePost(post._id))}>
+              <DeleteIcon/>
+              <span>삭제하기</span>
+            </button>
+          )} 
         </Btns>
       </PreviewBottom>
     </PostBox>
