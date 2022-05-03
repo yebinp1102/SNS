@@ -4,7 +4,6 @@ import { getPosts, createPost, updatePost, deletePost, likePost } from '../contr
 // middleware
 import auth from '../middleware/auth.mjs'
 
-
 const router = express.Router();
 
 router.get('/', getPosts);

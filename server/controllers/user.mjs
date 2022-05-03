@@ -22,7 +22,7 @@ export const signin = async (req, res) => {
 }
 
 export const signup = async (req, res) => {
-  const {email, password, username, confirmPassword} = req.body;
+  const {email, password, name, confirmPassword} = req.body;
   try{
     // 이미 해당 이메일을 사용 중인 유저가 있는지 확인
     const exsitingUser = await User.findOne({ email })
@@ -31,7 +31,7 @@ export const signup = async (req, res) => {
     if(password !== confirmPassword) return res.status(400).json({ message: "비밀번호가 일치하지 않습니다. 다시 시도해주세요 "})
     // 이메일도 새것이고, 비번도 일치한다면 비밀번호 암호화해서 DB에 저장
     const hashedPassword = await bcrypt.hash(password, 10);
-    const result = await User.create({ email, password: hashedPassword, username})
+    const result = await User.create({ email, password: hashedPassword, name})
     const token = jwt.sign({ email: result.email, id: result._id}, 'test', { expiresIn: "1h" })
     res.status(200).json({ result, token })
   }catch(err){

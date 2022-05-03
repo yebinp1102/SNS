@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { signin, signup } from '../../_actions/auth';
 
 const initialState = {
-  username: '',
+  name: '',
   email: '',
   password: '',
   confirmPassword: ''
@@ -27,7 +27,7 @@ const Auth = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if(isSignup){
-      dispatch(signup(formData, navigate))
+      dispatch(signup(formData, navigate)) 
     }else{
       dispatch(signin(formData, navigate))
     }
@@ -66,7 +66,7 @@ const Auth = () => {
         </div>
         { isSignup && (
           <>
-            <Input name="username" placeholder="이름" label="username" handleChange={handleChange} />
+            <Input name="name" placeholder="이름" label="name" handleChange={handleChange} />
           </>
         )}
         <Input 

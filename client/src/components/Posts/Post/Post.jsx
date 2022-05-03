@@ -9,6 +9,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 const Post = ({post, setCurrentId}) => {
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem('profile'))
+
   return (
     <PostBox className='box-shadow-shallow border'>
       <PreviewTop 
@@ -16,8 +18,8 @@ const Post = ({post, setCurrentId}) => {
         style={{backgroundImage: ` linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url(${post.selectedFile})`}}
       >
         <div>
-          <p>{post.creator}</p>
-          <p>{(post.createAt).slice(0,10)}</p>
+          <p>{post.name}</p>
+          <p>{(post.createdAt).slice(0,10)}</p>
         </div>
         <MoreHorizIcon className='cursor' onClick={() => setCurrentId(post._id)} />
       </PreviewTop>
@@ -30,7 +32,7 @@ const Post = ({post, setCurrentId}) => {
         <Btns>
           <button className='cursor highlight-color' onClick={() => dispatch(likePost(post._id))}>
             <ThumbUpIcon />
-            <span>좋아요 ({post.likeCount})</span>
+            <span>좋아요 ({post.likes})</span>
           </button>
           <button className='cursor warning-color' onClick={() => dispatch(deletePost(post._id))}>
             <DeleteIcon/>

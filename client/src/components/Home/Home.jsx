@@ -8,7 +8,7 @@ import { getPosts } from '../../_actions/posts'
 
 const Home = () => {
   const dispatch = useDispatch();
-  const [currentId, setCurrentId] = useState(null);
+  const [currentId, setCurrentId] = useState(0);
 
   // 어플 렌더링하자마자 모든 포스트를 불러오기 위한 action을 dispatch
   useEffect(()=>{

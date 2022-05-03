@@ -14,9 +14,10 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
 
+  // 로그인을 했을 때, 새로 고침을 하지 않아도 유저 정보가 자동 업데이트 되도록 설정
   useEffect(()=>{
     const token = user?.token;
-    // 구글 로그인 시 token을 제공하기 때문에 jwt 사용할 필요 X
+    // 구글 로그인 시, token이 자동 생성되기 때문에 jwt 사용할 필요 X
     setUser(JSON.parse(localStorage.getItem('profile')))
   },[location])
 
@@ -25,8 +26,6 @@ const Navbar = () => {
     navigate('/')
     setUser(null);
   }
-
-  console.log(user);
   return (
     <Header className='box-shadow-shallow sub-bg-color-light'>
       <div className='logo'>
@@ -36,11 +35,11 @@ const Navbar = () => {
         </Link>
       </div>
       <div className='rightNav'>
-        <Input witdh='300px' type='text' name='내용 검색' />
-        <Input width='300px' type='text' name='태그 검색' />
-        { user ? (
+        <Input witdh='300px' type='text' placeholder='내용 검색' />
+        <Input width='300px' type='text' placeholder='태그 검색' />
+        { user ? (     //  유저 정보가 있으면 유저 이름과 로그아웃 버튼, 없으면 로그인 버튼을 보여준다. 
           <div className='center'>
-            <p className='username'>{user.result.name || user.result.username} 님</p>
+            <p className='username'>{user.result.name} 님</p>
             <Button 
               name={"로그아웃"}
               className="highlight-bg-color" 
