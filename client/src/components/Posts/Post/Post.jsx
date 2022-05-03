@@ -5,11 +5,31 @@ import { deletePost, likePost } from '../../../_actions/posts';
 // icons
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const Post = ({post, setCurrentId}) => {
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem('profile'))
+
+  // Likes 컴포넌트는 좋아요를 클릭한 게시물에 따라 좋아요 아이콘이 다르게 보여준다. 
+  const Likes = () => {
+    if(post.likes.length > 0){
+      return post.likes.find((like) => like === (user?.result?.googleId || user?.result?._id))
+      ? (
+        <>
+          <ThumbUpIcon />
+          <span>좋아요({post.likes.length})</span>
+        </>
+      ) : (
+        <>
+          <ThumbUpOutlinedIcon />
+          <span>좋아요({post.likes.length})</span>
+        </>
+      )
+    }
+    return <><ThumbUpOutlinedIcon />좋아요</>;
+  }
 
   return (
     <PostBox className='box-shadow-shallow border'>
@@ -30,9 +50,8 @@ const Post = ({post, setCurrentId}) => {
           <p>{post.message}</p>
         </div>
         <Btns>
-          <button className='cursor highlight-color' onClick={() => dispatch(likePost(post._id))}>
-            <ThumbUpIcon />
-            <span>좋아요 ({post.likes})</span>
+          <button className='cursor highlight-color' disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
+            <Likes />
           </button>
           <button className='cursor warning-color' onClick={() => dispatch(deletePost(post._id))}>
             <DeleteIcon/>
