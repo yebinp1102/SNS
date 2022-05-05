@@ -13,6 +13,18 @@ export const getPosts = async (req, res) => {
     res.status(404).json({ message: err.message})
   }
 }
+// 쿼리 : /posts?page=1  ->  page 변수가 1임
+// PARAMs = > /posts/:id -> :id 자리에 사용자가 원하는 값을 넣을 수 있다.
+export const getPostsBySearch = async (req, res) => {
+  const { searchQuery, tags } = req.query
+  try{
+    const title = new RegExp(searchQuery, 'i') // test TEST Test를 모두 같은 것으로 인식한다.
+    const posts = await postMessage.find({ $or: [ {title}, {tags: { $in: tags.split(',') }}] }) // $or은 내용인지 제목인지 상관 없이 일치하는 단어를 찾는다.
+    res.json({ data: posts })
+  }catch(err){
+    res.status(404).json({ message: err.message })
+  }
+}
 
 export const createPost = async (req, res) => {
   const post = req.body;

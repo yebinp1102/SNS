@@ -18,7 +18,7 @@ const App = () => {
           <Route path='/posts' element={<Home />} />
           <Route path='/posts/search' element={<Home />} />
           <Route path='/posts/:id' element={<PostDetails />} />
-          {/* 사용자가 이미 로그인에 성공한 경우엔 로그인 페이지에 접근할 수 없도록 */}
+          {/* 사용자가 이미 로그인에 성공한 경우엔 로그인 페이지에 접근할 수 없도록 제한 */}
           <Route path='/auth' element={!user ? <Auth /> : <Navigate replace to='/posts' />} />
         </Routes>
       </AppWrap>

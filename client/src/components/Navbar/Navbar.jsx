@@ -3,10 +3,11 @@ import styled from 'styled-components'
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode'
+import ChipInput from 'material-ui-chip-input'
+import { getPostsBySearch } from '../../_actions/posts';
 
 import InterestsIcon from '@mui/icons-material/Interests';
 import Button from '../../utils/Button';
-import Input from '../../utils/Input'
 import { LOGOUT } from '../../_actions/types';
 
 const Navbar = () => {
@@ -14,6 +15,8 @@ const Navbar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+  const [search, setSearch] = useState('');
+  const [tags, setTags] = useState([]);
 
   // 로그인을 했을 때, 새로 고침을 하지 않아도 유저 정보가 자동 업데이트 되도록 설정
   useEffect(()=>{
@@ -32,6 +35,27 @@ const Navbar = () => {
     navigate('/')
     setUser(null);
   }
+
+  const handlekeyPress = (e) => {
+    if(e.keyCode === 13){ /// keyCode 13은 엔터 입력을 의미.
+      // 게시글 검색
+      searchPost();
+    }
+  }
+
+  const handleAdd = (tag) => setTags([...tags, tag]);
+
+  const handleDelete = (tagToDelete) => setTags(tags.filter((tag) => tag !== tagToDelete )) 
+
+  const searchPost = () => {
+    if(search.trim() || tags){
+      // dispatch -> fetch search post
+      dispatch(getPostsBySearch({ search, tags: tags.join(',') }))
+      navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`)
+    }else{
+      navigate('/');
+    }
+  }
   return (
     <Header className='box-shadow-shallow sub-bg-color-light'>
       <div className='logo'>
@@ -41,8 +65,22 @@ const Navbar = () => {
         </Link>
       </div>
       <div className='rightNav'>
-        <Input witdh='300px' type='text' placeholder='내용 검색' />
-        <Input width='300px' type='text' placeholder='태그 검색' />
+        <input 
+          className='input'
+          type='text' 
+          placeholder='내용 검색' 
+          value={search} 
+          onChange={(e)=>setSearch(e.target.value)}
+          onKeyPress={handlekeyPress}
+        />
+        <ChipInput 
+          value = {tags}
+          onAdd = {handleAdd}
+          onDelete = {handleDelete}
+          placeholder="태그로 검색"
+        />
+        <button className='btn' onClick={searchPost}>검색</button>
+        
         { user ? (     //  유저 정보가 있으면 유저 이름과 로그아웃 버튼, 없으면 로그인 버튼을 보여준다. 
           <div className='center'>
             <p className='username'>{user.result.name} 님</p>
