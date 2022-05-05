@@ -1,11 +1,17 @@
 import * as api from '../api'
-import { CREATE, FETCH_ALL, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH } from './types'
+import { CREATE, 
+  FETCH_ALL, 
+  UPDATE, 
+  DELETE, 
+  LIKE, 
+  FETCH_BY_SEARCH 
+} from './types'
 
 // Action Creators : 액션을 반환하는 함수
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (page) => async (dispatch) => {
   try{
-    const { data } = await api.fetchPosts() // get api 요청을 보내고 기다림
-    dispatch({ type: FETCH_ALL, payload: data });
+    const { data : { data, currentPage, numberOfPages} } = await api.fetchPosts(page) // get api 요청을 보내고 기다림
+    dispatch({ type: FETCH_ALL, payload: {data, currentPage, numberOfPages} });
   }catch(err){
     console.log(err)
   }

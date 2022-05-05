@@ -21,17 +21,12 @@ const Home = () => {
   const page = query.get('page') || 1   // 페이지가 있는지 확인하고 없으면 1로 인식
   const searchQuery = query.get('searchQuery')
 
-  // 어플 렌더링하자마자 모든 포스트를 불러오기 위한 action을 dispatch
-  useEffect(()=>{
-    dispatch(getPosts());
-  },[currentId, dispatch])
-
   return (
     <Main className='pd-2 sub-bg-color-dark'>
       <Posts setCurrentId={setCurrentId} />
       <div className='sideBar'>
         <Form currentId={currentId} setCurrentId={setCurrentId} />
-        <Pagination />
+        <Pagination page={page} />
       </div>
     </Main>
   )

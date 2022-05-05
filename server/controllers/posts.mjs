@@ -6,9 +6,13 @@ const router = express.Router();
 import postMessage from "../models/postMessage.mjs"
 
 export const getPosts = async (req, res) => {
+  const { page } = req.query
   try{
-    const post = await postMessage.find();
-    res.status(200).json(post);
+    const LIMIT = 6;
+    const startIndex = (Number(page) - 1) * LIMIT
+    const total = await postMessage.countDocuments({}); // 몇개의 게시글이 DB에 존재하는지 확인
+    const posts = await postMessage.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);  // sort 메서드는 새로운 게시글을 우선적으로 보여준다.
+    res.json({ data : posts, currentPage: Number(page), numberOfPages: Math.ceil(total/LIMIT) });
   }catch(err){
     res.status(404).json({ message: err.message})
   }
