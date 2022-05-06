@@ -20,6 +20,7 @@ const Home = () => {
   const navigate = useNavigate();
   const page = query.get('page') || 1   // 페이지가 있는지 확인하고 없으면 1로 인식
   const searchQuery = query.get('searchQuery')
+  const location = useLocation();
 
   return (
     <Main className='pd-2 sub-bg-color-dark'>

@@ -5,11 +5,13 @@ import { useSelector } from 'react-redux'
 import { CircularProgress } from '@material-ui/core'
 
 const Posts = ({setCurrentId}) => {
-  const {posts} = useSelector((state) => state.posts);
+  const { posts, isLoading } = useSelector((state) => state.posts);
+
+  if(!posts.length && !isLoading) return '게시글이 없습니다.'
 
   return (
     <PostsWrap className='border pd-1 box-shadow-deep'>
-      {!posts?.length ? <CircularProgress /> : (
+      {isLoading ? <CircularProgress /> : (
         <>
           <h2 className='pd-1 main-color-dark'>최신 글</h2>
           <PostWrap className='pd-1 sub-bg-color-dark border'>

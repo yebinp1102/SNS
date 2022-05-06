@@ -4,14 +4,18 @@ import { CREATE,
   UPDATE, 
   DELETE, 
   LIKE, 
-  FETCH_BY_SEARCH 
+  FETCH_BY_SEARCH,
+  START_LOADING,
+  END_LOADING
 } from './types'
 
 // Action Creators : 액션을 반환하는 함수
 export const getPosts = (page) => async (dispatch) => {
   try{
+    dispatch({ type: START_LOADING })
     const { data : { data, currentPage, numberOfPages} } = await api.fetchPosts(page) // get api 요청을 보내고 기다림
     dispatch({ type: FETCH_ALL, payload: {data, currentPage, numberOfPages} });
+    dispatch({ type: END_LOADING })
   }catch(err){
     console.log(err)
   }
@@ -19,8 +23,10 @@ export const getPosts = (page) => async (dispatch) => {
 
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   try{
+    dispatch({ type: START_LOADING })
     const { data: { data } } = await api.fetchPostsBySearch(searchQuery);
     dispatch({ type: FETCH_BY_SEARCH, payload: data });
+    dispatch({ type: END_LOADING })
   }catch(err){
     console.log(err)
   }
@@ -28,6 +34,7 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 
 export const createPost = (post) => async (dispatch) => {
   try{
+    dispatch({ type: START_LOADING })
     const { data } = await api.createPost(post) // post api 요청을 보내고 기다림
     dispatch({ type: CREATE, payload: data })
   }catch(err){
