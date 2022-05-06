@@ -5,6 +5,16 @@ const router = express.Router();
 // 각 모델 접근 권한
 import postMessage from "../models/postMessage.mjs"
 
+export const getPost = async(req,res ) => {
+  const { id } = req.params;
+  try{
+    const post = await postMessage.findById(id);
+    res.status(200).json(post)
+  }catch(err){
+    res.status(404).json({ message: err.message})
+  }
+}
+
 export const getPosts = async (req, res) => {
   const { page } = req.query
   try{

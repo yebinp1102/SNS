@@ -1,6 +1,7 @@
 import * as api from '../api'
 import { CREATE, 
   FETCH_ALL, 
+  FETCH_POST,
   UPDATE, 
   DELETE, 
   LIKE, 
@@ -10,6 +11,18 @@ import { CREATE,
 } from './types'
 
 // Action Creators : 액션을 반환하는 함수
+
+export const getPost = (id) => async(dispatch) => {
+  try{
+    dispatch({ type: START_LOADING })
+    const { data } = await api.fetchPost(id);
+    dispatch({ type: FETCH_POST, payload: data })
+    dispatch({ type: END_LOADING })
+  }catch(err){
+    console.log(err)
+  }
+}
+
 export const getPosts = (page) => async (dispatch) => {
   try{
     dispatch({ type: START_LOADING })
